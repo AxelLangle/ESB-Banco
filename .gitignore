@@ -1,1 +1,36 @@
+# Dependencias
+node_modules/
+.pnp
+.pnp.js
  
+# Build outputs
+dist/
+build/
+.next/
+ 
+# Variables de entorno — NUNCA subir al repo
+.env
+.env.local
+.env.*.local
+# El .env.example SÍ se sube (ver infra/env/)
+ 
+# Logs
+logs/
+*.log
+npm-debug.log*
+ 
+# Sistema operativo
+.DS_Store
+Thumbs.db
+ 
+# IDE
+.vscode/
+.idea/
+*.suo
+ 
+# Coverage
+coverage/
+.nyc_output/
+
+
+
