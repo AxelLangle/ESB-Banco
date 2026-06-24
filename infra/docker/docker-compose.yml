@@ -1,1 +1,86 @@
  
+version: "3.9"
+ 
+services:
+  esb-core:
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.esb-core
+    ports:
+      - "3000:3000"
+      - "9090:9090"   # monitoring
+    env_file:
+      - ../env/.env
+    depends_on:
+      - postgres
+    volumes:
+      - ../../esb-core:/app/esb-core
+      - ../../shared:/app/shared
+ 
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: esb_bancario
+      POSTGRES_USER: esb_user
+      POSTGRES_PASSWORD: esb_dev_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+ 
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+ 
+volumes:
+  pg_data:
+ 
+
+
+10. esb-core/canonical/envelope.schema.json
+Equipo: Equipo ESB
+
+Esquema JSON Schema del sobre canónico. Es el contrato central del sistema — ningún equipo puede modificarlo sin PR aprobado por los dos revisores del Equipo ESB.
+ 
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "esb-bancario/canonical-envelope",
+  "title": "Canonical Envelope",
+  "type": "object",
+  "required": ["header", "security_context", "payload", "business_rules"],
+  "properties": {
+    "header": {
+      "type": "object",
+      "required": ["transaction_id","timestamp","consumer_app","target_service","protocol_source"],
+      "properties": {
+        "transaction_id": { "type": "string", "format": "uuid" },
+        "timestamp":      { "type": "string", "format": "date-time" },
+        "consumer_app":   { "type": "string", "enum": ["APP_MOVIL","CAJERO_ATM","CAJERO_RED"] },
+        "target_service": { "type": "string" },
+        "protocol_source":{ "type": "string", "enum": ["REST_JSON","ISO_8583","SWIFT_MT"] }
+      }
+    },
+    "security_context": {
+      "type": "object",
+      "required": ["auth_method","pci_dss_compliant","fraud_check"],
+      "properties": {
+        "auth_method":     { "type": "string", "enum": ["JWT_RS256","PIN_BLOCK_MFA"] },
+        "pci_dss_compliant":{ "type": "boolean" },
+        "fraud_check": {
+          "type": "object",
+          "properties": {
+            "ml_score":    { "type": "number", "minimum": 0, "maximum": 1 },
+            "ofac_cleared":{ "type": "boolean" }
+          }
+        }
+      }
+    },
+    "payload":        { "type": "object" },
+    "business_rules": { "type": "object" }
+  }
+}
+ 
+
