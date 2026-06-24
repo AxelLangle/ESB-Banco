@@ -1,1 +1,26 @@
+# ESB Bancario — CODEOWNERS
+# Formato: <patrón>   <@usuario> ...
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
  
+# ── Núcleo del bus ────────────────────────────────
+/esb-core/                    @axellangle @Bryan
+ 
+# ── Apps consumidoras ────────────────────────────
+/apps/app-movil/              @Irving Roberto
+/apps/cajero-atm/             @JoselineCasiano
+/apps/cajero-red/             @JECHAPE08
+ 
+# ── Servicios de negocio ─────────────────────────
+/services/retiro/             @LuisEnrique
+/services/deposito/           @DanaeMariel
+/services/transferencia/      @Jaxe020406
+ 
+# ── Código compartido y docs: Tech Leads ─────────
+/shared/                      @Bryan @Jaxe020406 @MaxCrg @axellangle
+/docs/                        @Bryan @Jaxe020406 @MaxCrg @axellangle
+/infra/                       @Bryan @Jaxe020406 @MaxCrg @axellangle
+ 
+# ── Archivos raíz ────────────────────────────────
+/package.json                 @axellangle @Bryan
+/.github/                     @axellangle @Bryan
+
