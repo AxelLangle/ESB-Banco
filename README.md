@@ -10,7 +10,7 @@
 | esb-core            | Equipo ESB                    | @axellangle @Bryan            |
 | apps/app-movil      | Equipo App Móvil              | @Irving @Roberto              |
 | apps/cajero-atm     | Equipo Cajero ATM             | @JoselineCasiano              |
-| apps/cajero-red     | Equipo Red Interbancaria      | @JECHAPE08                    |
+| apps/cajero-red     | Equipo Cajero Red             | @JECHAPE08 @MaxiCrg           |
 | services/retiro     | Equipo Retiro                 | @LuisEnrique                  |
 | services/deposito   | Equipo Depósito               | @DanaeMariel                  |
 | services/transferencia | Equipo Transferencia       | @Jaxe020406                   |
